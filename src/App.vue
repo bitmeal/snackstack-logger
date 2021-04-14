@@ -26,7 +26,12 @@
           </v-col>
         </v-row>
       </v-container>
-      <snack-stack :transparency="false" :dark="dark" buttontext="close" />
+      <snack-stack
+        :deadtime="250"
+        :transparency="false"
+        :dark="dark"
+        buttontext="close"
+      />
     </v-main>
   </v-app>
 </template>

@@ -40,9 +40,17 @@ export default {
   name: "SnackStack",
 
   props: {
+    stacksize: {
+        type: Number,
+        default: 2
+    },
     timeout: {
       type: Number,
       default: 4000,
+    },
+    deadtime: {
+        type: Number,
+        default: 0
     },
     buttontext: {
       type: String,
@@ -57,21 +65,23 @@ export default {
     },
   },
 
-  data: () => ({}),
+  data: () => ({
+      color: colors.blue,
+  }),
 
   computed: {
     ...mapGetters(["count"]),
     ...mapState(["message", "errors", "warnings", "infos"]),
-    color() {
-      switch (this.message && this.message["type"]) {
-        case "error":
-          return colors.red;
-        case "warning":
-          return colors.orange;
-        default:
-          return colors.blue;
-      }
-    },
+    // color() {
+    //   switch (this.message && this.message["type"]) {
+    //     case "error":
+    //       return colors.red;
+    //     case "warning":
+    //       return colors.orange;
+    //     default:
+    //       return colors.blue;
+    //   }
+    // },
     button_color() {
       return this.color[`${this.dark ? "lighten" : "darken"}2`];
     },
@@ -89,6 +99,21 @@ export default {
 
   methods: {
     ...mapActions(["shiftQueue"]),
+    color_computer(message, old_message) {
+        let ref = message ? message : old_message;
+        let color = colors.blue;
+      switch (ref && ref["type"]) {
+        case "error":
+          color = colors.red;
+          break;
+        case "warning":
+          color = colors.orange;
+          break;
+        default:
+          color = colors.blue;
+      }
+      this.color = color;
+    },
     hexToRGB(hex) {
       hex = hex.trim();
       if (hex.length === 7 && hex[0] === "#") {
@@ -142,33 +167,33 @@ export default {
         ".v-snack__wrapper"
       )[0];
       /* eslint-disable-next-line no-extra-boolean-cast */
-      if (!Boolean(this.message) || this.count < 1) {
-        wrapper.style.boxShadow = [
-          snack_card_shadow(),
-          snack_stack_shadow,
-        ].join(", ");
-      } else {
-        let shadow = [
+      if (Boolean(this.message)) {
+        let shadow_stack = [
           snack_card_shadow(0),
-          snack_card_stack(1),
-          snack_card_shadow(1),
+          ...(Array.apply(null, Array(Math.min(this.stacksize, this.count)))
+                .map((_, idx) => [
+                    snack_card_stack(idx + 1),
+                    snack_card_shadow(idx + 1)
+                ])
+                .flat()
+            ),
+            snack_stack_shadow
         ];
-        if (this.count > 1) {
-          shadow.push(...[snack_card_stack(2), snack_card_shadow(2)]);
-        }
-        shadow.push(snack_stack_shadow);
-        wrapper.style.boxShadow = shadow.join(", ");
+
+        shadow_stack.push();
+        wrapper.style.boxShadow = shadow_stack.join(", ");
       }
     },
   },
 
   created() {
     // register snackstack vuex module from within component: spares user from manually registering
-    this.$store.registerModule("snack-stack-logger", snackstack_vuex);
+    this.$store.registerModule("snack-stack-logger", snackstack_vuex(this.deadtime));
 
     // attach watchers after vuex module is registered
-    this.$watch("count", this.watcher);
-    this.$watch("dark", this.watcher);
+    this.$watch('message', this.color_computer);
+    this.$watch('count', this.watcher);
+    this.$watch('dark', this.watcher);
   },
 };
 
@@ -214,7 +239,7 @@ export { logger };
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-color: black;
+  background-color: #212121;
   color: whitesmoke;
   display: flex;
   align-items: center;

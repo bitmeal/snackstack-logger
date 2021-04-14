@@ -8,7 +8,7 @@
         <v-icon @click="log.error(`⚡ ${value}`)">mdi-close</v-icon>
       </v-btn>
       <v-btn icon>
-        <v-icon @click="log.warn(`🚧 ${value}`)">mdi-bell</v-icon>
+        <v-icon @click="log.warn({ text: `🚧 ${value}`, timeout: 500 })">mdi-bell</v-icon>
       </v-btn>
       <v-btn icon>
         <v-icon @click="log.info({ text: `☁ ${value}`, timeout: -1 })"
