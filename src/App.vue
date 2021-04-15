@@ -1,10 +1,7 @@
 <template>
   <v-app>
-    <v-main>
-      <v-container
-        fill-height
-        :style="`background-color: ${dark ? '#212121' : '#FAFAFA'};`"
-      >
+    <v-main :style="`background-color: ${dark ? '#212121' : '#FAFAFA'};`">
+      <v-container fill-height>
         <v-row>
           <v-col>
             <v-card width="200">
@@ -27,7 +24,7 @@
         </v-row>
       </v-container>
       <snack-stack
-        :deadtime="250"
+        :deadtime="0"
         :transparency="false"
         :dark="dark"
         buttontext="close"
