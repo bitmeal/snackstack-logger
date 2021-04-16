@@ -1,0 +1,2 @@
+# ignore vue-cli-service auto generated demo.html file on lib build and packaging
+demo.html

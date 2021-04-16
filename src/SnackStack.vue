@@ -30,27 +30,26 @@
 </template>
 <script>
 import colors from "vuetify/es5/util/colors";
-import { createNamespacedHelpers } from "vuex";
-const { mapState, mapGetters, mapActions } = createNamespacedHelpers(
+import Vuex from "vuex";
+const { mapState, mapGetters, mapActions } = Vuex.createNamespacedHelpers(
   "snack-stack-logger"
 );
-import { snackstack_vuex } from "./snackstack-vuex.js";
 
 export default {
   name: "SnackStack",
 
   props: {
     stacksize: {
-        type: Number,
-        default: 2
+      type: Number,
+      default: 2,
     },
     timeout: {
       type: Number,
       default: 4000,
     },
     deadtime: {
-        type: Number,
-        default: 0
+      type: Number,
+      default: 0,
     },
     buttontext: {
       type: String,
@@ -66,22 +65,13 @@ export default {
   },
 
   data: () => ({
-      color: colors.blue,
+    color: colors.blue,
   }),
 
   computed: {
     ...mapGetters(["count"]),
     ...mapState(["message", "errors", "warnings", "infos"]),
-    // color() {
-    //   switch (this.message && this.message["type"]) {
-    //     case "error":
-    //       return colors.red;
-    //     case "warning":
-    //       return colors.orange;
-    //     default:
-    //       return colors.blue;
-    //   }
-    // },
+
     button_color() {
       return this.color[`${this.dark ? "lighten" : "darken"}2`];
     },
@@ -100,8 +90,8 @@ export default {
   methods: {
     ...mapActions(["shiftQueue"]),
     color_computer(message, old_message) {
-        let ref = message ? message : old_message;
-        let color = colors.blue;
+      let ref = message ? message : old_message;
+      let color = colors.blue;
       switch (ref && ref["type"]) {
         case "error":
           color = colors.red;
@@ -170,14 +160,13 @@ export default {
       if (Boolean(this.message)) {
         let shadow_stack = [
           snack_card_shadow(0),
-          ...(Array.apply(null, Array(Math.min(this.stacksize, this.count)))
-                .map((_, idx) => [
-                    snack_card_stack(idx + 1),
-                    snack_card_shadow(idx + 1)
-                ])
-                .flat()
-            ),
-            snack_stack_shadow
+          ...Array.apply(null, Array(Math.min(this.stacksize, this.count)))
+            .map((_, idx) => [
+              snack_card_stack(idx + 1),
+              snack_card_shadow(idx + 1),
+            ])
+            .flat(),
+          snack_stack_shadow,
         ];
 
         shadow_stack.push();
@@ -185,45 +174,19 @@ export default {
       }
     },
   },
+  watch: {
+    message(val, prev) { this.color_computer(val, prev); },
+    count(val, prev) { this.watcher(val, prev); },
+    dark(val, prev) { this.watcher(val, prev); },
+  },
 
   created() {
-    // register snackstack vuex module from within component: spares user from manually registering
-    this.$store.registerModule("snack-stack-logger", snackstack_vuex(this.deadtime));
-
     // attach watchers after vuex module is registered
-    this.$watch('message', this.color_computer);
-    this.$watch('count', this.watcher);
-    this.$watch('dark', this.watcher);
+    // this.$watch("message", this.color_computer);
+    // this.$watch("count", this.watcher);
+    // this.$watch("dark", this.watcher);
   },
 };
-
-const logger = {
-  install(Vue, name) {
-    const _name = name && typeof name === "string" ? name : "logger";
-
-    Vue.mixin({
-      methods: {
-        ...mapActions({
-          _snackStackInfo: "info",
-          _snackStackWarn: "warn",
-          _snackStackError: "error",
-        }),
-      },
-      data: (instance) => {
-        let data = {};
-        data[_name] = {
-          log: instance._snackStackInfo,
-          info: instance._snackStackInfo,
-          warn: instance._snackStackWarn,
-          error: instance._snackStackError,
-        };
-        return data;
-      },
-    });
-  },
-};
-
-export { logger };
 </script>
 <style>
 .count-anchor {

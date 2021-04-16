@@ -34,14 +34,14 @@
 </template>
 
 <script>
-import SnackStack from "./components/SnackStack.vue";
-import DemoComponent from "./components/DemoComponent.vue";
+// import SnackStack from './SnackStack.vue';
+import DemoComponent from './DemoComponent.vue';
 
 export default {
   name: "App",
 
   components: {
-    SnackStack,
+    // SnackStack,
     DemoComponent,
   },
 

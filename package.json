@@ -1,23 +1,26 @@
 {
-  "name": "snackstack",
+  "name": "snackstack-logger-vuetify-vuex",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "dev:serve": "vue-cli-service serve",
+    "dev:build": "vue-cli-service build",
+    "build": "cross-env VUE_BUILD_TARGET=lib vue-cli-service build --target lib --name snackstack-logger-vuetify-vuex ./src/install.js",
     "lint": "vue-cli-service lint"
   },
-  "dependencies": {
-    "core-js": "^3.6.5",
+  "peerDependencies": {
     "vue": "^2.6.11",
     "vuetify": "^2.4.0",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@mdi/font": "^5.9.55",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
+    "core-js": "^3.6.5",
+    "cross-env": "^7.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "sass": "^1.32.0",
@@ -44,5 +47,11 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "files": [
+    "dist/*"
+  ],
+  "main": "dist/snackstack-logger-vuetify-vuex.umd.js",
+  "module": "dist/snackstack-logger-vuetify-vuex.esm.js",
+  "unpkg": "dist/snackstack-logger-vuetify-vuex.umd.min.js"
 }
