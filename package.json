@@ -49,9 +49,10 @@
     "not dead"
   ],
   "files": [
-    "dist/*"
+    "src/*",
+    "bundle/snackstack-logger-vuetify-vuex.umd.min.js",
+    "bundle/snackstack-logger-vuetify-vuex.css"
   ],
-  "main": "dist/snackstack-logger-vuetify-vuex.umd.js",
-  "module": "dist/snackstack-logger-vuetify-vuex.esm.js",
-  "unpkg": "dist/snackstack-logger-vuetify-vuex.umd.min.js"
+  "main": "src/install.js",
+  "unpkg": "bundle/snackstack-logger-vuetify-vuex.umd.min.js"
 }
