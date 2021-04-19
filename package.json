@@ -63,7 +63,8 @@
   ],
   "files": [
     "src/*",
-    "bundle/*"
+    "bundle/*",
+    "assets/*"
   ],
   "main": "src/install.js",
   "unpkg": "bundle/snackstack-logger-vuetify-vuex.umd.min.js"
