@@ -1,7 +1,7 @@
 {
   "name": "snackstack-logger-vuetify-vuex",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev:serve": "vue-cli-service serve",
     "dev:build": "vue-cli-service build",
