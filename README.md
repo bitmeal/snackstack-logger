@@ -1,7 +1,7 @@
 # 🍪snackstack logger 📰
 *Easy logging to **human targets** from anywhere in your Vue/Vuetify application.*
 
-![snackstack sample](assets/snackstack.gif)
+![snackstack sample](https://github.com/bitmeal/snackstack-logger/raw/master/assets/snackstack.gif)
 > 📌 watch stacking order: queuing time vs. deliver order
 
 *snackstack* enables you to log short information to your users, using a snackbar. The logger automatically registers and makes itself available in all Vue components.

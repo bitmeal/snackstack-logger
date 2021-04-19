@@ -7,6 +7,11 @@
     "email": "arne.wendt@tuhh.de",
     "url": "https://github.com/bitmeal"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitmeal/snackstack-logger.git"
+  },
+  "homepage": "https://github.com/bitmeal/snackstack-logger#readme",
   "keywords": [
     "logging",
     "logger",
@@ -63,8 +68,7 @@
   ],
   "files": [
     "src/*",
-    "bundle/*",
-    "assets/*"
+    "bundle/*"
   ],
   "main": "src/install.js",
   "unpkg": "bundle/snackstack-logger-vuetify-vuex.umd.min.js"
