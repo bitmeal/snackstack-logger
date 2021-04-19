@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import Vuex from 'vuex';
 import Vuetify from 'vuetify/lib/framework';
-import SnackStackLogger from 'snackstack-logger-vuetify-vuex/dist/snackstack-logger-vuetify-vuex.umd';
+import SnackStackLogger from 'snackstack-logger-vuetify-vuex';
 import '@mdi/font/css/materialdesignicons.css'
 
 // setup vuetify

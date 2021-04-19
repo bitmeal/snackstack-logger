@@ -13,15 +13,19 @@ module.exports = (() => {
   // building library target
   if (process.env.VUE_BUILD_TARGET === 'lib') {
     return {
+      // output bundled assets to ./bundle directory
       outputDir: path.join(__dirname, './bundle'),
+      // inline css from components - single file include for browser
+      css: { extract: false },
+
       chainWebpack: config => {
         // do not bundle vuetify, vuex and vue (should be excluded per default)
         // we are not transpiling vuetify dependencies as well
         config
           .externals({
-            vuetify: ext_factory('Vuetify', 'vuetify'),
             vuex: ext_factory('Vuex', 'vuex'),
-            vue: ext_factory('Vue', 'vue')
+            // vuetify: ext_factory('Vuetify', 'vuetify'),
+            // vue: ext_factory('Vue', 'vue')
           })
       }
 

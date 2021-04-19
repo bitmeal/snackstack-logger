@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <style>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-content: flex-start;
+    }
+    .row {
+        display: flex;
+        justify-content: center;
+    }
+    .col {
+        display: flex;
+        justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+  <v-app>
+    <v-main>
+      <v-container fill-height>
+        <v-row>
+          <v-col>
+      <v-btn @click="logger.error('⚡ error msg')">
+        ERR
+      </v-btn>
+
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+      <v-btn @click="logger.warn({ text: '🚧 warning message', timeout: 1000 })">
+        WARN
+      </v-btn>
+
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+      <v-btn @click="logger.info({ text: '☁ info message', timeout: -1 })">
+          INFO
+      </v-btn>
+
+          </v-col>
+        </v-row>
+      </v-container>
+      <snack-stack
+        :deadtime="0"
+        :transparency="false"
+        buttontext="close"
+      />
+    </v-main>
+  </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuex@3.x/dist/vuex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/snackstack-logger-vuetify-vuex@0.1.x/bundle/snackstack-logger-vuetify-vuex.umd.min.js"></script>
+  <!-- <script src="../../bundle/snackstack-logger-vuetify-vuex.umd.min.js"></script> /-->
+  <!-- <script src="https://raw.githubusercontent.com/bitmeal/snackstack-logger/module/bundle/snackstack-logger-vuetify-vuex.umd.min.js"></script> /-->
+  <script>
+    new Vue({
+      el: '#app',
+      store: new Vuex.Store({}),
+      vuetify: new Vuetify(),
+    })
+  </script>
+</body>
+</html>
